@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="/static/styles.css" rel="stylesheet">
+    <title>50Type: {% block title %}{% endblock %}</title>
+</head>
+
+<body>
+
+    <nav>
+        <a href="/" class="nav-brand">50TYPE</a>
+
+        <ul class="nav-links">
+            {% if session["user_id"] %}
+                <li><a href="/profile">PROFILE</a></li>
+                <li><a href="/logout">LOGOUT</a></li>
+                <li><a href="/leaderboard">LEADERBOARD</a></li>
+                <li><a href="/">HOME</a></li>
+            {% else %}
+                <li><a href="/register">REGISTER</a></li>
+                <li><a href="/login">LOGIN</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% if get_flashed_messages() %}
+        <div class="flash-container">
+            <div class="flash-msg">
+                {{ get_flashed_messages() | join(" ") }}
+            </div>
+        </div>
+    {% endif %}
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Final Project for <a href="https://cs50.harvard.edu/x/2026/">CS50</a></p>
+    </footer>
+
+    <script type="module" src="/static/main.js"></script>
+</body>
+</html>

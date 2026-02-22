@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+<div class="profile-container">
+
+    <div class="profile-header">
+        <h1 class="profile-name">{{ user.name }}</h1>
+        <p class="profile-joined">Joined: {{ user.created_at }}</p>
+
+        <div class="profile-stats">
+            <div class="stat-box">
+                <span class="stat-label">tests taken</span>
+                <span class="stat-value">{{ stats.total_tests if stats.total_tests else 0 }}</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">average wpm</span>
+                <span class="stat-value">{{ stats.avg_wpm if stats.avg_wpm else 0 }}</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">all-time max</span>
+                <span class="stat-value" style="color: #e2b714;">{{ stats.max_wpm if stats.max_wpm else 0 }}</span>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="history-title">recent tests</h2>
+    <table class="leaderboard-table">
+        <thead>
+            <tr>
+                <th>date/ time</th>
+                <th>wpm</th>
+                <th>acc</th>
+                <th>mode</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for test in history %}
+            <tr>
+                <td class="timestamp">{{ test.timestamp }}</td>
+                <td class="wpm">{{ test.wpm }}</td>
+                <td class="acc">{{ test.accuracy }}%</td>
+                <td class="mode">{{ test.mode }}s</td>
+            </tr>
+            {% endfor %}
+
+            {% if not history %}
+            <tr>
+                <td colspan="4" style="text-align: center; padding: 2rem;">No tests completed yet. Go type!</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

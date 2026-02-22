@@ -1,0 +1,526 @@
+/* basic styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0d0d0d;
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand {
+    font-size: 1.25rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    color: #cfcfcf;
+    transition: color 0.2s ease;
+}
+
+.nav-brand:hover, .nav-links a:hover {
+    color: white;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    font-size: 0.875rem;
+    color: #444444;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+.flash-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.flash-msg {
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #444444;
+    color: #cfcfcf;
+    font-size: 0.875rem;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.75rem;
+    color: #444444;
+}
+
+footer a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+footer a:hover {
+    color: white;
+}
+
+/* --- main game --- */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 56rem;
+    transition: opacity 0.2s ease;
+    margin: 0 auto;
+}
+
+.game-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    color: #444444;
+    font-weight: bold;
+}
+
+.mode-selector {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.game-header .time-set {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.32rem;
+    font-weight: normal;
+    color: #444444;
+    transition: all 0.2s ease;
+}
+
+.game-header .time-set:hover {
+    color: #cfcfcf;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+button.time-set.active {
+    color: #cfcfcf;
+    font-weight: bold;
+}
+
+.active {
+    font-weight: bold;
+    color: rgb(207, 207, 207);
+}
+
+.word-display {
+    position: relative;
+    width: 100%;
+    height: 14.625rem;
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, black 81%, transparent 100%);
+}
+
+.words-overlay,
+.words-input {
+    font-size: 3rem;
+    line-height: 1.625;
+    text-align: left;
+    outline: none;
+    width: 100%;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font-family: 'JetBrains Mono', monospace;
+
+}
+
+.words-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    color: #666;
+    user-select: none;
+    pointer-events: none;
+    min-height: 100px;
+    word-break: break-word;
+    white-space: pre-wrap;
+    will-change: transform;
+}
+
+.words-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+    color: transparent;
+    caret-color: #444;
+    resize: none;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.wpm-container {
+    font-size: 1.5rem;
+    color: #d1d0c5;
+}
+
+.wpm-label {
+    color: #646669;
+    font-size: 1rem;
+}
+
+.restart-btn {
+    margin-top: 3rem;
+    background: transparent;
+    color: #cfcfcf;
+    border: 1px solid #444444;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.correct {
+    color: #9de3ad !important;
+}
+
+.incorrect {
+    color: #f2786f !important;
+}
+
+.current {
+    border-left: 2px solid #e2b714;
+}
+
+.restart-btn:hover {
+    background-color: #cfcfcf;
+    color: #0d0d0d;
+}
+
+.invisible {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* user registration and login */
+.auth-container {
+    width: 100%;
+    max-width: 24rem;
+}
+
+.auth-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #cfcfcf;
+    letter-spacing: 0.1em;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.noir-input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #444444;
+    color: #cfcfcf;
+    padding: 0.5rem 0;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.noir-input::placeholder {
+    color: #444444;
+    opacity: 0.5;
+}
+
+.noir-input:focus {
+    border-bottom-color: white;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    border: 1px solid #444444;
+    background-color: transparent;
+    color: #cfcfcf;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth-btn:hover {
+    background-color: #cfcfcf;
+    color: #0d0d0d;
+}
+
+/* --- Modal Styles --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 13, 13, 0.85);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.hidden {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content {
+    background-color: #0d0d0d;
+    border: 1px solid #444444;
+    padding: 3rem 4rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(0) scale(1);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-overlay.hidden .modal-content {
+    transform: translateY(20px) scale(0.95);
+}
+
+.modal-header {
+    font-size: 1.5rem;
+    color: #444444;
+    margin-bottom: 2rem;
+    letter-spacing: 0.1em;
+}
+
+.modal-stats {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-label {
+    color: #444444;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 3.5rem;
+    color: #cfcfcf;
+    line-height: 1;
+}
+
+#modal-max-wpm {
+    color: #e2b714;
+}
+
+/* --- error page --- */
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 50vh;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.error-code {
+    font-size: 8rem;
+    font-weight: bold;
+    color: #444444;
+    line-height: 1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.05em;
+    user-select: none;
+}
+
+.error-message {
+    font-size: 2rem;
+    color: #cfcfcf;
+    margin-bottom: 0.5rem;
+}
+
+.error-subtext {
+    color: #646669;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+}
+
+.back-home-btn {
+    text-decoration: none;
+    display: inline-block;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- leaderboard --- */
+.leaderboard-container {
+    width: 100%;
+    max-width: 48rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.leaderboard-title {
+    color: #444444;
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #cfcfcf;
+    text-align: left;
+}
+
+.leaderboard-table th {
+    color: #444444;
+    font-size: 0.875rem;
+    font-weight: normal;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #444444;
+}
+
+.leaderboard-table td {
+    padding: 1rem 0;
+    border-bottom: 1px dashed #2c2e31;
+}
+
+.leaderboard-table .rank {
+    color: #444444;
+    width: 10%;
+}
+
+.leaderboard-table .name {
+    width: 40%;
+    font-weight: bold;
+    color: #e2b714;
+}
+
+.leaderboard-table .wpm {
+    width: 20%;
+    font-size: 1.25rem;
+}
+
+.leaderboard-table .acc, .leaderboard-table .mode {
+    width: 15%;
+    color: #646669;
+}
+
+/* --- profile --- */
+.profile-container {
+    width: 100%;
+    max-width: 48rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px dashed #444444;
+}
+
+.profile-name {
+    color: #cfcfcf;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.profile-joined {
+    color: #444444;
+    font-size: 0.875rem;
+    margin-bottom: 2rem;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+}
+
+.history-title {
+    color: #444444;
+    font-size: 1.25rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    font-weight: normal;
+}
+
+.leaderboard-table .timestamp {
+    width: 40%;
+    color: #646669;
+    font-size: 0.875rem;
+}

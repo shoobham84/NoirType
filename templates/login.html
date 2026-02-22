@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block main %}
+    <div class="auth-container">
+        <h2 class="auth-header">LOGIN</h2>
+
+        <form action="/login" method="post">
+            <div class="form-group">
+                <input name="username" autocomplete="off" autofocus class="noir-input" placeholder="Username" type="text">
+            </div>
+
+            <div class="form-group">
+                <input name="password" class="noir-input" placeholder="Password" type="password">
+            </div>
+
+            <button class="auth-btn" type="submit">
+                ENTER
+            </button>
+        </form>
+    </div>
+{% endblock %}

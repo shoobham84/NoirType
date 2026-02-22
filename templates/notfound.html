@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    404
+{% endblock %}
+
+{% block main %}
+<div class="error-container">
+    <div class="error-code">404</div>
+    <div class="error-message">
+        <span class="incorrect" style="text-decoration: none;">typ</span>o detected.
+    </div>
+    <div class="error-subtext">
+        The page you are looking for doesn't exist.
+    </div>
+
+    <a href="/" class="restart-btn back-home-btn">
+        RETURN TO TEST
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block title %}Leaderboard{% endblock %}
+
+{% block main %}
+<div class='leaderboard-container'>
+    <h1 class='leaderboard-title'>all-time top 10</h1>
+
+    <table class='leaderboard-table'>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>name</th>
+                <th>wpm</th>
+                <th>acc</th>
+                <th>mode</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in scores %}
+            <tr>
+                <td class='rank'>{{ loop.index }}</td>
+                <td class='name'>{{ score.name }}</td>
+                <td class='wpm'>{{ score.max_wpm }}</td>
+                <td class='acc'>{{ score.accuracy }}</td>
+                <td class='mode'>{{ score.mode }}</td>
+            </tr>
+            {% endfor %}
+
+            {% if not scores %}
+            <tr>
+                <td colspan="5" style="text-align: center; padding: 2rem;">No scores yet. Be the first!</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+{% endblock %}

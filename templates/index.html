@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    HOME
+{% endblock %}
+
+{% block main %}
+<div id="game-container" class="game-container">
+
+    <div class="game-header">
+        <div class="timer-display"></div>
+
+        <div class='mode-selector'>
+            <button class="time-set endless" value='endless'>Endless</button>
+            <button class="time-set" value="30">30s</button>
+            <button class="time-set" value="15">15s</button>
+        </div>
+
+        <div class="wpm-container" style="transition: opacity 0.2s;">
+            <span class="wpm-label">wpm: </span>
+            <span class="live-wpm">0</span>
+        </div>
+    </div>
+
+    <div class="word-display">
+        <div id='target-text' class='words-overlay'></div>
+        <textarea id='user-input' class='words-input' autofocus autocomplete="off" autocorrect="off" spellcheck="false" ></textarea>
+    </div>
+</div>
+<div id="result-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <div class="modal-header">test complete</div>
+
+        <div class="modal-stats">
+            <div class="stat-box">
+                <span class="stat-label">WPM</span>
+                <span id="modal-current-wpm" class="stat-value">0</span>
+            </div>
+
+            <div class="stat-box">
+                <span class="stat-label">Acc</span>
+                <span id="modal-accuracy" class="stat-value">0%</span>
+            </div>
+
+            <div class="stat-box">
+                <span class="stat-label">all-time max</span>
+                <span id="modal-max-wpm" class="stat-value">...</span>
+            </div>
+        </div>
+
+        <button id="modal-restart-btn" class="restart-btn">restart test</button>
+    </div>
+</div>
+{% endblock %}
