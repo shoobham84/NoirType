@@ -3,7 +3,7 @@
 #### Description:
 
 ## Overview
-NoirType is a minimalistic, neo-noir themed, zen-core typing speed application built as a final project for Harvard's CS50x. Designed to help users practice their typing speed without the visual clutter and distractions of traditional typing tests, the app features a sleek, focus-driven interface.
+NoirType is a minimalistic, neo-noir themed, zen-core typing speed application. Designed to help users practice their typing speed without the visual clutter and distractions of traditional typing tests, the app features a sleek, focus-driven interface.
 
 The core philosophy behind NoirType was to build a highly responsive, low-latency web application from the ground up. It intentionally avoids bloated JavaScript frameworks, instead relying on strict, optimized Vanilla JavaScript DOM manipulation on the frontend, paired with a robust Python Flask server and a relational SQLite database on the backend to securely track user progression, historical accuracy, and global leaderboards.
 
