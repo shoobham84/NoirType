@@ -1,11 +1,11 @@
-# 50TYPE
+# NoirType
 #### Video Demo:  https://youtu.be/xk-oPMpwEFo
 #### Description:
 
 ## Overview
-50Type is a minimalistic, neo-noir themed, zen-core typing speed application built as a final project for Harvard's CS50x. Designed to help users practice their typing speed without the visual clutter and distractions of traditional typing tests, the app features a sleek, focus-driven interface.
+NoirType is a minimalistic, neo-noir themed, zen-core typing speed application built as a final project for Harvard's CS50x. Designed to help users practice their typing speed without the visual clutter and distractions of traditional typing tests, the app features a sleek, focus-driven interface.
 
-The core philosophy behind 50Type was to build a highly responsive, low-latency web application from the ground up. It intentionally avoids bloated JavaScript frameworks, instead relying on strict, optimized Vanilla JavaScript DOM manipulation on the frontend, paired with a robust Python Flask server and a relational SQLite database on the backend to securely track user progression, historical accuracy, and global leaderboards.
+The core philosophy behind NoirType was to build a highly responsive, low-latency web application from the ground up. It intentionally avoids bloated JavaScript frameworks, instead relying on strict, optimized Vanilla JavaScript DOM manipulation on the frontend, paired with a robust Python Flask server and a relational SQLite database on the backend to securely track user progression, historical accuracy, and global leaderboards.
 
 ## Features
 * **Zero-Latency Word Generation:** Instantaneous loading of localized word batches to ensure the user never has to wait for an API response to start typing.
@@ -50,14 +50,14 @@ project/
 ## Technical Implementation Details
 
 ### 1. The Word Generation Engine
-Rather than relying on an external API to fetch random words, 50Type prioritizes absolute zero-latency execution. Relying on an external API introduces the risk of network latency, rate-limiting, and asynchronous `Promises` that could delay the start or restart of a rapid-fire typing test.
+Rather than relying on an external API to fetch random words, NoirType prioritizes absolute zero-latency execution. Relying on an external API introduces the risk of network latency, rate-limiting, and asynchronous `Promises` that could delay the start or restart of a rapid-fire typing test.
 
 Instead, local data generation was implemented. A custom script was utilized via Chrome DevTools to scrape the 3,000 most common English words from the EF Global Site, refining them down to an array of 500 distinct words. This dataset is encapsulated in an external ES6 module (`words.js`). When a user starts or restarts a test, the `generateBoard()` function synchronously pulls a shuffled slice of 250 words directly from local memory, ensuring instantaneous replayability.
 
 ### 2. The Text Overlay Architecture
 Capturing rapid user keyboard input while maintaining custom syntax highlighting (light green for correct keystrokes, dark orange for incorrect keystrokes) presented a significant DOM manipulation challenge. Standard HTML `<textarea>` elements natively accept input but do not support multi-colored text styling on a per-character basis.
 
-To solve this natively without a library, 50Type uses a stacked, invisible DOM architecture:
+To solve this natively without a library, NoirType uses a stacked, invisible DOM architecture:
 * **The Invisible Input (`.words-input`):** An HTML `<textarea>` sits at the highest `z-index` with its text color set to transparent and its resize property disabled. It captures raw user input natively, handling keyboards, backspaces, and standard typing events perfectly. Custom JavaScript event listeners strictly `preventDefault()` on `copy`, `paste`, `cut`, and `ctrl+a` to prevent users from artificially inflating their WPM.
 * **The Ghost Overlay (`.words-overlay`):** Sitting exactly beneath the invisible textarea is a `div`. JavaScript intercepts every keystroke, dynamically splitting the target words into individual HTML `<span>` elements. As the user types, JavaScript compares the value of the hidden textarea against the inner text of the spans, applying `.correct` or `.incorrect` CSS classes in real-time.
 * **Synchronized Scrolling:** A JavaScript event listener syncs the `scrollTop` property of both elements. As the user types multiple lines and forces the invisible textarea to scroll down, the visible ghost overlay scrolls perfectly in tandem (using CSS `top` transformations), creating the seamless illusion of typing directly onto styled text. A CSS `mask-image` linear gradient is applied to the container to smoothly fade out text at the bottom boundary.
@@ -73,7 +73,7 @@ The backend utilizes SQLite3, manipulated via the `cs50.SQL` library, consisting
 * **`history` Table:** Stores an auto-incrementing `id`, the `user_id` (foreign key), the achieved `wpm`, the calculated `accuracy`, the time `mode` played, and the `timestamp`.
 
 ### 5. Dynamic Data Rendering (Jinja)
-50Type goes beyond a simple frontend typing script by offering persistent, globally ranked user accounts.
+NoirType goes beyond a simple frontend typing script by offering persistent, globally ranked user accounts.
 * **The Leaderboard (`/leaderboard`):** To generate the top 10 rankings, the backend utilizes a complex SQL `JOIN` query to combine the `users` and `history` tables. It employs a `GROUP BY users.id` clause to ensure a single user doesn't dominate the entire board, fetching only the `MAX(wpm)` for each individual player before passing the data to Jinja to dynamically generate the HTML table.
 * **User Profiles (`/profile`):** The backend queries the database for the logged-in user to calculate aggregate data on the fly. It uses SQL `COUNT()` to determine total tests taken, `AVG()` rounded to calculate overall lifetime accuracy/speed, and pulls a complete, chronologically descending log (`ORDER BY timestamp DESC`) of their typing history to render a personalized dashboard.
 
